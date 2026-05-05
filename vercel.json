@@ -1,6 +1,6 @@
 {
-  "buildCommand": "pnpm --filter @workspace/terminal run build",
-  "outputDirectory": "artifacts/terminal/dist",
+  "buildCommand": "pnpm --filter @workspace/terminal run build && cp -r artifacts/terminal/dist ./dist",
+  "outputDirectory": "dist",
   "framework": null,
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
