@@ -1,0 +1,11 @@
+{
+  "buildCommand": "pnpm --filter @workspace/terminal run build",
+  "outputDirectory": "artifacts/terminal/dist",
+  "framework": null,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "env": {
+    "BASE_PATH": "/"
+  }
+}
