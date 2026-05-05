@@ -1,5 +1,5 @@
 {
-  "buildCommand": "bash build-vercel.sh",
+  "buildCommand": "cd ../.. && pnpm --filter @workspace/terminal run build",
   "outputDirectory": "dist",
   "framework": null,
   "rewrites": [
