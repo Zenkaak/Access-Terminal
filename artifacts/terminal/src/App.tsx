@@ -1,7 +1,7 @@
-import Terminal from "@/components/Terminal";
+import Dashboard from "@/components/Dashboard";
 
 function App() {
-  return <Terminal />;
+  return <Dashboard />;
 }
 
 export default App;
