@@ -1,6 +1,7 @@
 {
-  "buildCommand": "cd ../.. && pnpm --filter @workspace/terminal run build",
+  "buildCommand": "pnpm --filter @workspace/terminal run build",
   "outputDirectory": "artifacts/terminal/dist",
+  "installCommand": "pnpm install",
   "framework": null,
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
