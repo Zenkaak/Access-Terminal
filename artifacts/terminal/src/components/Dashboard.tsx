@@ -863,6 +863,108 @@ function RestrictedPanel({ onUpgrade, onReset }: { onUpgrade: () => void; onRese
 }
 
 function UpgradePanel({ onContinue, onBack }: { onContinue: () => void; onBack: () => void }) {
+  const [pending, setPending] = useState(false);
+
+  const handleContinue = () => {
+    setPending(true);
+  };
+
+  if (pending) {
+    return (
+      <div>
+        <div style={{ textAlign: "center", marginBottom: 28 }}>
+          <div
+            style={{
+              width: 56,
+              height: 56,
+              borderRadius: 16,
+              background: "rgba(245,158,11,0.1)",
+              border: "1px solid rgba(245,158,11,0.3)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "0 auto 14px",
+              fontSize: "1.6rem",
+            }}
+          >
+            ⏳
+          </div>
+          <h1 style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--warning)", margin: 0, letterSpacing: "-0.03em" }}>
+            Payment Pending
+          </h1>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", marginTop: 6, marginBottom: 0 }}>
+            Awaiting confirmation from payment network
+          </p>
+        </div>
+
+        <div className="card" style={{ padding: 28, borderColor: "rgba(245,158,11,0.2)" }}>
+          <AlertBanner type="warn">
+            Your request has been received and is pending verification. No action is required at this time.
+          </AlertBanner>
+
+          <div style={{ marginTop: 20 }}>
+            <SectionLabel>Status</SectionLabel>
+            <div style={{ background: "var(--bg-muted)", borderRadius: 10, border: "1px solid var(--border)", overflow: "hidden" }}>
+              {[
+                { label: "Request ID", value: `REQ-${Math.floor(Math.random() * 90000) + 10000}` },
+                { label: "Plan", value: "Access Upgrade" },
+                { label: "Amount", value: "USD 14.30" },
+                { label: "Status", value: "PENDING", color: "var(--warning)" },
+                { label: "Est. Review Time", value: "5–10 minutes" },
+              ].map(({ label, value, color }, i) => (
+                <div
+                  key={label}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px 14px",
+                    borderBottom: i < 4 ? "1px solid var(--border)" : "none",
+                  }}
+                >
+                  <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>{label}</span>
+                  <span style={{ fontSize: "0.8rem", fontWeight: 600, color: color ?? "var(--text-primary)", fontFamily: label === "Request ID" ? "monospace" : "inherit" }}>
+                    {value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ marginTop: 20 }}>
+            <div className="progress-bar-track">
+              <div
+                className="progress-bar-fill"
+                style={{
+                  width: "45%",
+                  background: "linear-gradient(90deg, #f59e0b, #fbbf24)",
+                  boxShadow: "0 0 12px rgba(245,158,11,0.4)",
+                  animation: "pending-pulse 2s ease-in-out infinite",
+                }}
+              />
+            </div>
+            <div style={{ fontSize: "0.72rem", color: "var(--text-muted)", marginTop: 6 }}>
+              Verifying with payment network...
+            </div>
+          </div>
+
+          <div style={{ marginTop: 20 }}>
+            <button className="btn-ghost" onClick={onBack} style={{ width: "100%" }}>
+              ← Return to Login
+            </button>
+          </div>
+        </div>
+
+        <style>{`
+          @keyframes pending-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+          }
+        `}</style>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div style={{ textAlign: "center", marginBottom: 28 }}>
@@ -955,7 +1057,7 @@ function UpgradePanel({ onContinue, onBack }: { onContinue: () => void; onBack: 
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <button className="btn-success" onClick={onContinue}>
+          <button className="btn-success" onClick={handleContinue}>
             Continue →
           </button>
           <button className="btn-ghost" onClick={onBack}>
